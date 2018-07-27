@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Entity
 @IdClass(ClassTributariaPK.class)
 @Table(name = "CLASSIFICACAO_TRIBUTARIA")
-public class ClassificacaoTributaria implements Serializable{
+public class ClassificacaoTributaria implements Serializable {
 
     @Id
     @Column(name = "seq_pesquisa")
@@ -45,6 +45,9 @@ public class ClassificacaoTributaria implements Serializable{
 
     @Column(name = "idn_st_uso_consumo")
     private String idnUsoConsumo;
+
+    @Column(name = "idnipi_tributado")
+    private String idnIpiTributado;
 
 
     public ClassificacaoTributaria() {
@@ -90,7 +93,6 @@ public class ClassificacaoTributaria implements Serializable{
     }
 
 
-
     public Integer getSequencia() {
         return sequencia;
     }
@@ -131,12 +133,16 @@ public class ClassificacaoTributaria implements Serializable{
         return margemST / 100;
     }
 
-    public Boolean isVendaForaUF(){
-        return  !this.ufEmitente.equals(this.ufDestino);
+    public Boolean isVendaForaUF() {
+        return !this.ufEmitente.equals(this.ufDestino);
     }
 
-    public Boolean isUsoConsumo(){
-        return idnUsoConsumo!= null? idnUsoConsumo.equals("S") : false;
+    public Boolean isUsoConsumo() {
+        return idnUsoConsumo != null ? idnUsoConsumo.equals("S") : false;
+    }
+
+    public Boolean isIpiTributado() {
+        return idnIpiTributado != null ? idnIpiTributado.equals("S") : false;
     }
 
     @Override

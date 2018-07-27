@@ -32,6 +32,12 @@ public class Tributacao implements Serializable{
     @Column(name = "per_base_icms")
     private Double percBaseICMS = 0.0;
 
+    @Column(name = "per_base_ipi")
+    private Double percBaseIPI = 0.0;
+
+    @Column(name = "per_ipi")
+    private Double perIpi = 0.0;
+
     public Tributacao() {
     }
 
@@ -90,6 +96,10 @@ public class Tributacao implements Serializable{
         return percICMSEfetivo / 100;
     }
 
+    public Double getPerIpi() {
+        return percBaseIPI > 0 ? perIpi / percBaseIPI : 0.0;
+    }
+
     @Override
     public String toString() {
         return "Tributacao{" +
@@ -99,6 +109,9 @@ public class Tributacao implements Serializable{
                 ", percBaseST=" + percBaseST +
                 ", percStEstSimples=" + percStEstSimples +
                 ", percICMSEfetivo=" + percICMSEfetivo +
+                ", percBaseICMS=" + percBaseICMS +
+                ", percBaseIPI=" + percBaseIPI +
+                ", perIpi=" + perIpi +
                 '}';
     }
 }

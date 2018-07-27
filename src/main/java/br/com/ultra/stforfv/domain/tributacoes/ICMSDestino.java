@@ -18,7 +18,10 @@ public class ICMSDestino implements ICalculoICMS {
             return params.somaValores() * (params.getTrib().getPercBaseST());
         }
 
-        return params.somaValores() * (params.getTrib().getPercBaseICMS());
+        Double valorIpi = params.getCt().isIpiTributado() ? (params.getTotalProdutos() * params.getTrib().getPerIpi()) : 0.0;
+        Double somaValores = params.somaValores() + valorIpi;
+
+        return somaValores * (params.getTrib().getPercBaseICMS());
     }
 
     @Override

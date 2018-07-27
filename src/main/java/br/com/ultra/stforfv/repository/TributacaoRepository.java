@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TributacaoRepository extends JpaRepository<Tributacao, Integer>{
 
-    @Query(value = "select codtributacao, dsctributacao, per_st, per_base_st, per_st_est_simples, per_ICMS_efetiva, per_base_icms " +
+    @Query(value = "select codtributacao, dsctributacao, per_st, per_base_st, per_st_est_simples, per_ICMS_efetiva, per_base_icms, per_ipi, per_base_ipi " +
             "from tributacoes where codtributacao = :codtributacao", nativeQuery = true)
     Tributacao findByCodigo(@Param("codtributacao") Integer codigo);
 }

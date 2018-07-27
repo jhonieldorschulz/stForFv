@@ -17,7 +17,7 @@ public class Params {
 
     private Boolean ipiTributado = false;
 
-    private Double valorIpi = 0.0;
+//    private Double valorIpi = 0.0;
 
     private Integer codigoTributacao;
 
@@ -45,14 +45,14 @@ public class Params {
     public Params() {
     }
 
-    public Params(Boolean simples, Double totalProdutos, Double despesasAcessorias, Double frete, Double seguro, Boolean ipiTributado, Double valorIpi, ClassificacaoTributaria ct, Tributacao trib) {
+    public Params(Boolean simples, Double totalProdutos, Double despesasAcessorias, Double frete, Double seguro, Boolean ipiTributado,  ClassificacaoTributaria ct, Tributacao trib) {
         this.simples = simples;
         this.totalProdutos = totalProdutos;
         this.despesasAcessorias = despesasAcessorias;
         this.frete = frete;
         this.seguro = seguro;
         this.ipiTributado = ipiTributado;
-        this.valorIpi = valorIpi;
+//        this.valorIpi = valorIpi;
         this.ct = ct;
         this.trib = trib;
     }
@@ -63,6 +63,13 @@ public class Params {
         this.ct = ct != null ? ct : new ClassificacaoTributaria();
         this.trib = trib != null ? trib : new Tributacao();
     }
+
+//    public Params(Boolean simples, Double totalProdutos, ClassificacaoTributaria ct, Tributacao trib) {
+//        this.simples = simples;
+//        this.totalProdutos = totalProdutos;
+//        this.ct = ct != null ? ct : new ClassificacaoTributaria();
+//        this.trib = trib != null ? trib : new Tributacao();
+//    }
 
     public Params(Double totalProdutos, ClassificacaoTributaria ct, Tributacao tributacao) {
         this.totalProdutos = totalProdutos;
@@ -92,9 +99,9 @@ public class Params {
         return ipiTributado;
     }
 
-    public Double getValorIpi() {
-        return valorIpi;
-    }
+//    public Double getValorIpi() {
+//        return valorIpi;
+//    }
 
 //    public Boolean getVendaForaDaUF() {
 //        return vendaForaDaUF;
@@ -180,6 +187,6 @@ public class Params {
     }
 
     public Double somaValores(){
-        return totalProdutos + despesasAcessorias + frete + seguro + valorIpi;
+        return totalProdutos + despesasAcessorias + frete + seguro;
     }
 }

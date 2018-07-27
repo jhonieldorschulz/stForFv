@@ -31,6 +31,11 @@ public class DB {
         this.host = "ultraserver";
     }
 
+    public DB(String url) {
+        this.url = url;
+        this.host = "ultraserver";
+    }
+
     public String getHost() {
         return host;
     }

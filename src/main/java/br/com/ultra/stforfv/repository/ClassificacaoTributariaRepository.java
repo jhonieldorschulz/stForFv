@@ -22,7 +22,8 @@ public interface ClassificacaoTributariaRepository extends JpaRepository<Classif
             "    ct.codfilial_emitente,\n" +
             "    ct.perc_ctm_st,\n" +
             "    ct.margem_calculo_st,\n" +
-            "    ct.idn_st_uso_consumo\n" +
+            "    ct.idn_st_uso_consumo,\n" +
+            "    ct.idnipi_tributado\n" +
             "    from classificacao_tributaria ct where\n" +
             "    ct.grupo_fiscal = :grupo_fiscal\n" +
             "    and ct.codoper = :codoper\n" +

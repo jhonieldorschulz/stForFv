@@ -10,6 +10,7 @@ import br.com.ultra.stforfv.domain.tributacoes.ST;
 import br.com.ultra.stforfv.repository.ClassificacaoTributariaRepository;
 import br.com.ultra.stforfv.repository.GrupoFiscalRepository;
 import br.com.ultra.stforfv.repository.TributacaoRepository;
+import br.com.ultra.stforfv.service.DBService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +34,22 @@ public class StforfvApplicationTests {
     @Autowired
     private GrupoFiscalRepository grupoFiscalRepository;
 
-    @Test
-    public void contextLoads() {
-    }
+    @Autowired
+    private DBService dbService;
+
+//    @Test
+//    public void contextLoads() {
+//    }
 
     @Test
     public void testeCalculoST_PROVINA() {
 //		ClassificacaoTributaria CT = classificacaoTributariaRepository
 //				.findByFilters(12, 100, 1, "PR", "PR", "J", null);
+
+        dbService.setDB("PROVINA");
+
+        System.out.println("________________________________________________________________________________________________________________________");
+        System.out.println("PROVINA\n");
 
         /**
          * Cenário 1
@@ -69,19 +78,37 @@ public class StforfvApplicationTests {
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
 
+        System.out.println("________________________________________________________________________________________________________________________");
     }
 
     @Test
     public void testeCalculoST_KGEPEL() {
-        System.out.println("Cenário 5");
+        dbService.setDB("KGEPEL");
+        System.out.println("________________________________________________________________________________________________________________________");
+        System.out.println("KGEPEL\n");
+
+//        System.out.println("Cenário 5");
+//        System.out.println("---------------------------------------------------------------------------------------------------------");
+
+//        processaST(15, 100, 1, "PR", "SC", "J", "CONSUMO CONTRIBUINTE", false, 115.0);
+
+        System.out.println("________________________________________________________________________________________________________________________");
+
+        System.out.println("Cenário 8");
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
-        processaST(15, 100, 1, "PR", "SC", "J", "CONSUMO CONTRIBUINTE", false, 115.0);
+        processaST(15, 100, 1, "PR", "SC", "J", "CONSUMO CONTRIBUINTE", false, 138.0);
 
+        System.out.println("________________________________________________________________________________________________________________________");
     }
 
     @Test
     public void testeCalculoST_TOPVET() {
+        dbService.setDB("TOPVET");
+
+        System.out.println("________________________________________________________________________________________________________________________");
+        System.out.println("TOPVET\n");
+
         System.out.println("Cenário 6");
         System.out.println("---------------------------------------------------------------------------------------------------------");
         processaST(2, 100, 1, "PR", "MS", "J", null, true, 100.0);
@@ -89,6 +116,21 @@ public class StforfvApplicationTests {
         System.out.println("Cenário 7");
         System.out.println("---------------------------------------------------------------------------------------------------------");
         processaST(6, 100, 1, "PR", "MS", "J", null, true, 118.0);
+
+        System.out.println("________________________________________________________________________________________________________________________");
+    }
+
+    @Test
+    public void testeCalculoST_SCHUMACHER(){
+        dbService.setDB("SCHUMACHER");
+
+        System.out.println("________________________________________________________________________________________________________________________");
+        System.out.println("SCHUMACHER\n");
+
+        System.out.println("Cenário 9");
+        System.out.println("---------------------------------------------------------------------------------------------------------");
+        processaST(5, 100, 1, "PR", "MG", "J", "REVENDA", false, 300.0);
+
     }
 
 
@@ -147,7 +189,7 @@ public class StforfvApplicationTests {
 
     }
 
-    @Test
+//    @Test
     public void getGruposFiscaisTest() {
         List<GrupoFiscal> gruposFiscais = grupoFiscalRepository.getGruposFiscais();
 
