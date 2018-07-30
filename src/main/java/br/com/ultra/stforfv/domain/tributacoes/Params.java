@@ -7,6 +7,8 @@ public class Params {
 
     private Double totalProdutos;
 
+    private Double desconto;
+
     private Double despesasAcessorias = 0.0;
 
     private Double frete = 0.0;
@@ -15,32 +17,16 @@ public class Params {
 
     private Boolean simples;
 
-    private Boolean ipiTributado = false;
+//    private Boolean ipiTributado = false;
 
-//    private Double valorIpi = 0.0;
-
-    private Integer codigoTributacao;
-
-//    private Boolean vendaForaDaUF;
-
-//    private Boolean usoConsumo;
+//    private Integer codigoTributacao;
+    private Boolean consideraDescontoIPI;
 
     private ClassificacaoTributaria ct;
 
     private Tributacao trib;
-//    private Double percIcmsUF;
-//
-//    private Double percBaseIcms;
-//
-//    private Double percEstSimples;
-//
-//    private Double percIcmsEfetivo;
-//
-//    private Double margemST;
-//
-//    private Double percBaseST;
-//
-//    private Double percCTM;
+
+    private IPI ipi;
 
     public Params() {
     }
@@ -51,39 +37,28 @@ public class Params {
         this.despesasAcessorias = despesasAcessorias;
         this.frete = frete;
         this.seguro = seguro;
-        this.ipiTributado = ipiTributado;
+//        this.ipiTributado = ipiTributado;
 //        this.valorIpi = valorIpi;
         this.ct = ct;
         this.trib = trib;
+
+
     }
 
-    public Params(Boolean simples, Double totalProdutos, ClassificacaoTributaria ct, Tributacao trib) {
+    public Params(Boolean simples, Boolean consideraDescontoIPI, Double totalProdutos, Double desconto, ClassificacaoTributaria ct, Tributacao trib) {
         this.simples = simples;
         this.totalProdutos = totalProdutos;
+        this.desconto = desconto;
         this.ct = ct != null ? ct : new ClassificacaoTributaria();
         this.trib = trib != null ? trib : new Tributacao();
+        this.ipi = new IPI(this.trib, (totalProdutos - desconto), totalProdutos, consideraDescontoIPI);
     }
 
-//    public Params(Boolean simples, Double totalProdutos, ClassificacaoTributaria ct, Tributacao trib) {
-//        this.simples = simples;
-//        this.totalProdutos = totalProdutos;
-//        this.ct = ct != null ? ct : new ClassificacaoTributaria();
-//        this.trib = trib != null ? trib : new Tributacao();
-//    }
 
     public Params(Double totalProdutos, ClassificacaoTributaria ct, Tributacao tributacao) {
         this.totalProdutos = totalProdutos;
-
         this.ct = ct;
         this.trib = tributacao;
-
-//        this.vendaForaDaUF = ct.isVendaForaUF();
-//        this.usoConsumo = ct.get
-
-//        this.usoConsumo = trib.get
-//        this.percCTM = ct.getPercCtmST();
-//        this.vendaForaDaUF = ct.isVendaForaUF();
-//        this
 
     }
 
@@ -91,86 +66,8 @@ public class Params {
         return totalProdutos;
     }
 
-//    public Boolean getSimples() {
-//        return simples;
-//    }
-
-    public Boolean getIpiTributado() {
-        return ipiTributado;
-    }
-
-//    public Double getValorIpi() {
-//        return valorIpi;
-//    }
-
-//    public Boolean getVendaForaDaUF() {
-//        return vendaForaDaUF;
-//    }
-
-
-//    public Double getPercEstSimples() {
-//        return percEstSimples / 100;
-//    }
-//
-//    public Double getPercIcmsEfetivo() {
-//        return percIcmsEfetivo / 100;
-//    }
-//
-//    public Double getPercBaseIcms() {
-//        return percBaseIcms / 100;
-//    }
-//
-//    public Double getPercIcmsUF() {
-//        return percIcmsUF / 100;
-//    }
-//
-//
-//    public Double getMargemST() {
-//        return margemST / 100;
-//    }
-
-//    public Double getBaseIcms() {
-//
-//        Estado estado = null;
-//
-//        Double base = 0.0;
-//
-//        switch (estado){
-//            case ORIGEM:{
-//               base = getBaseOrigem();
-//            }
-//
-//            case DESTINO:{
-//                base = getBaseDestino();
-//            }
-//        }
-//
-//        return base;
-//    }
-
-//    private Double getBaseOrigem(){
-//        if (usoConsumo && simples) {
-//            return (totalProdutos - (totalProdutos * getPercEstSimples())) / (1 - getPercIcmsUF());
-//        }
-//
-//        if(usoConsumo && !simples){
-//            return  (totalProdutos - (totalProdutos * getPercIcmsEfetivo())) / (1 - getPercIcmsUF());
-//        }
-//
-//        return somaValores() * ( 1 + getMargemST()) * getPercIcmsUF();
-//    }
-
-//    private Double getBaseDestino(){
-//        if(usoConsumo){
-//            return totalProdutos;
-//        }
-//
-//        if(!usoConsumo && simples){
-//            //percBaseST deverá vir do obj CT instanciado de ClassificacaoTributaria
-//            return somaValores()  * (percBaseST / 100.0);
-//        }
-//
-//        return somaValores()  * (percBaseIcms / 100.0);
+//    public Boolean getIpiTributado() {
+//        return ipiTributado;
 //    }
 
 
@@ -188,5 +85,25 @@ public class Params {
 
     public Double somaValores(){
         return totalProdutos + despesasAcessorias + frete + seguro;
+    }
+
+    public IPI getIpi() {
+        return ipi;
+    }
+
+    @Override
+    public String toString() {
+        return "Params{" +
+                "totalProdutos=" + totalProdutos +
+                ", desconto=" + desconto +
+                ", despesasAcessorias=" + despesasAcessorias +
+                ", frete=" + frete +
+                ", seguro=" + seguro +
+                ", simples=" + simples +
+                ", consideraDescontoIPI=" + consideraDescontoIPI +
+                ", ct=" + ct.toString() +
+                ", trib=" + trib.toString() +
+                ", ipi=" + ipi.toString() +
+                '}';
     }
 }

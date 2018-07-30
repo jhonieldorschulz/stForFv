@@ -57,7 +57,7 @@ public class StforfvApplicationTests {
         System.out.println("Cenário 1");
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
-        processaST(12, 100, 1, "PR", "PR", "J", null, false, 348.6);
+        processaST(12, 100, 1, "PR", "PR", "J", null, false, true, 348.6, 0.0);
 
         System.out.println("---------------------------------------------------------------------------------------------------------\n");
 
@@ -66,7 +66,7 @@ public class StforfvApplicationTests {
          */
         System.out.println("Cenário 2");
         System.out.println("---------------------------------------------------------------------------------------------------------");
-        processaST(12, 100, 1, "PR", "MS", "J", null, false, 348.6);
+        processaST(12, 100, 1, "PR", "MS", "J", null, false, true, 348.6,0.0);
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
         /**
@@ -74,7 +74,7 @@ public class StforfvApplicationTests {
          */
         System.out.println("Cenário 3");
         System.out.println("----------------------------------------------------------------------------------------------------------");
-        processaST(12, 100, 1, "PR", "SP", "J", null, false, 348.6);
+        processaST(12, 100, 1, "PR", "SP", "J", null, false, true, 348.6, 0.0);
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
 
@@ -87,17 +87,17 @@ public class StforfvApplicationTests {
         System.out.println("________________________________________________________________________________________________________________________");
         System.out.println("KGEPEL\n");
 
-//        System.out.println("Cenário 5");
-//        System.out.println("---------------------------------------------------------------------------------------------------------");
+        System.out.println("Cenário 5");
+        System.out.println("---------------------------------------------------------------------------------------------------------");
 
-//        processaST(15, 100, 1, "PR", "SC", "J", "CONSUMO CONTRIBUINTE", false, 115.0);
+        processaST(15, 100, 1, "PR", "SC", "J", "CONSUMO CONTRIBUINTE", false, true, 88.84, 0.0);
 
         System.out.println("________________________________________________________________________________________________________________________");
 
         System.out.println("Cenário 8");
         System.out.println("---------------------------------------------------------------------------------------------------------");
 
-        processaST(15, 100, 1, "PR", "SC", "J", "CONSUMO CONTRIBUINTE", false, 138.0);
+        processaST(15, 100, 1, "PR", "SC", "J", "CONSUMO CONTRIBUINTE", false, true, 138.0, 0.0);
 
         System.out.println("________________________________________________________________________________________________________________________");
     }
@@ -111,11 +111,11 @@ public class StforfvApplicationTests {
 
         System.out.println("Cenário 6");
         System.out.println("---------------------------------------------------------------------------------------------------------");
-        processaST(2, 100, 1, "PR", "MS", "J", null, true, 100.0);
+        processaST(2, 100, 1, "PR", "MS", "J", null, true, true, 100.0, 0.0);
 
         System.out.println("Cenário 7");
         System.out.println("---------------------------------------------------------------------------------------------------------");
-        processaST(6, 100, 1, "PR", "MS", "J", null, true, 118.0);
+        processaST(6, 100, 1, "PR", "MS", "J", null, true, true, 118.0, 0.0);
 
         System.out.println("________________________________________________________________________________________________________________________");
     }
@@ -129,13 +129,13 @@ public class StforfvApplicationTests {
 
         System.out.println("Cenário 9");
         System.out.println("---------------------------------------------------------------------------------------------------------");
-        processaST(5, 100, 1, "PR", "MG", "J", "REVENDA", false, 300.0);
+        processaST(5, 100, 1, "PR", "MG", "J", "REVENDA", false, true, 300.0, 0.0);
 
     }
 
 
     public void processaST(Integer grupoFiscal, Integer operacao, Integer filial, String ufEmitente, String ufDestino, String tipoPessoa,
-                           String regimeEstadual, Boolean simples, Double totalProdutos) {
+                           String regimeEstadual, Boolean simples, Boolean consideraDescontoIPI, Double totalProdutos, Double desconto) {
 
         ClassificacaoTributaria ctOrigem = classificacaoTributariaRepository
                 .findByFilters(grupoFiscal, operacao, filial, ufEmitente, ufDestino, tipoPessoa, regimeEstadual);
@@ -148,7 +148,9 @@ public class StforfvApplicationTests {
 
 //        assertNotNull(tribOrigem);
 
-        Params paramsOrigem = new Params(simples, totalProdutos, ctOrigem, tribOrigem);
+        Params paramsOrigem = new Params(simples, consideraDescontoIPI, totalProdutos, desconto, ctOrigem, tribOrigem);
+
+        System.out.println(paramsOrigem.toString());
 
         ICMS origem = new ICMS(Estado.ORIGEM, paramsOrigem);
 
@@ -171,7 +173,9 @@ public class StforfvApplicationTests {
 
 //        System.out.println("tribDestino:" + tribDestino.toString());
 
-        Params paramsDestino = new Params(simples, totalProdutos, ctDestino, tribDestino);
+        Params paramsDestino = new Params(simples, consideraDescontoIPI, totalProdutos, desconto, ctDestino, tribDestino);
+
+        System.out.println(paramsDestino.toString());
 
         ICMS destino = new ICMS(Estado.DESTINO, paramsDestino);
 

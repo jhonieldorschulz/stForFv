@@ -22,7 +22,7 @@ public class ICMSOrigem implements ICalculoICMS {
             return (params.getTotalProdutos() - (params.getTotalProdutos() * params.getTrib().getPercICMSEfetivo())) / (1 - params.getTrib().getPercST());
         }
 
-        Double valorIpi = params.getTotalProdutos() * params.getTrib().getPerIpi();
+        Double valorIpi = params.getIpi().getValor();
 
         return (params.somaValores() + valorIpi) * ((1 + params.getCt().getMargemST()) * params.getTrib().getPercBaseST());
     }

@@ -18,7 +18,7 @@ public class ICMSDestino implements ICalculoICMS {
             return params.somaValores() * (params.getTrib().getPercBaseST());
         }
 
-        Double valorIpi = params.getCt().isIpiTributado() ? (params.getTotalProdutos() * params.getTrib().getPerIpi()) : 0.0;
+        Double valorIpi = params.getCt().isIpiTributado() ? (params.getIpi().getValor()) : 0.0;
         Double somaValores = params.somaValores() + valorIpi;
 
         return somaValores * (params.getTrib().getPercBaseICMS());
@@ -44,7 +44,7 @@ public class ICMSDestino implements ICalculoICMS {
             }
 
             /**
-             * SE Filial não for do Simples em Uso e Consumo
+             * SE Filial não for do Simples
              */
             if (!params.getSimples()) {
                 valorICMS = base * params.getTrib().getPercICMSEfetivo();

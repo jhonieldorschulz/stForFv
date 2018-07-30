@@ -31,7 +31,6 @@ public class ICMS {
         valorBase = calculoICMS.getBaseICMS();
         valor = calculoICMS.getValorICMS(valorBase);
 
-
     }
 
     public Double getPercentual() {
